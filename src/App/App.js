@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import './App.css';
-import WelcomeMessage from "./WelcomeMessage"
+import WelcomeMessage from "../Settings/WelcomeMessage"
 import AppLayout from "./AppLayout"
 import { AppProvider } from "./AppProvider"
-
+import Settings from "../Settings/Index"
 import AppBar from "./AppBar"
 
 
@@ -13,7 +13,7 @@ class App extends Component {
       <AppLayout>
         <AppProvider>
           <AppBar />
-          <WelcomeMessage />
+          <Settings />
         </AppProvider>
       </AppLayout>
 

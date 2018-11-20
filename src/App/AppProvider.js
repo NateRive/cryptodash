@@ -3,17 +3,37 @@ import React, { Component } from "react"
 export const AppContext = React.createContext()
 
 export class AppProvider extends Component {
-  // state = {
-  //   page: "dashborad",
-  //   setPage: this.setPage
-  // }
+
 
   constructor(props) {
     super(props)
     this.state = {
       page: "dashborad",
-      setPage: this.setPage
+      ...this.saveSettings(),
+      setPage: this.setPage,
+      confirmFavorites: this.confirmFavorites
     }
+  }
+
+  confirmFavorites = () => {
+    this.setState({
+      firstVisit: false,
+      page: "dashborad"
+    })
+    localStorage.setItem("cryptoDash", JSON.stringify({
+      test: "hello"
+    }))
+  }
+
+  saveSettings() {
+    let cryptoDashData = JSON.parse(localStorage.getItem("cryptoDash"))
+    if (!cryptoDashData) {
+      return {
+        page: "settings",
+        firstVisit: true
+      }
+    }
+    return {}
   }
 
   setPage = (page) => {
