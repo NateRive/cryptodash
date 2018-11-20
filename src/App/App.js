@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import WelcomeMessage from "./WelcomeMessage"
 import AppLayout from "./AppLayout"
+import { AppProvider } from "./AppProvider"
 
 import AppBar from "./AppBar"
 
@@ -10,8 +11,10 @@ class App extends Component {
   render() {
     return (
       <AppLayout>
-        <AppBar />
-        <WelcomeMessage />
+        <AppProvider>
+          <AppBar />
+          <WelcomeMessage />
+        </AppProvider>
       </AppLayout>
 
     );
