@@ -1,8 +1,11 @@
 import React from "react"
 import WelcomeMessage from "./WelcomeMessage"
 import ConfirmButton from "./ConfirmButton"
-
+import Page from "../Shared/Page"
 export default () => {
-  return <div><WelcomeMessage /> <ConfirmButton /></div>
+  return (
+    <Page name="settings">
+      <div><WelcomeMessage /> <ConfirmButton /></div>
+    </Page>)
 }
 
