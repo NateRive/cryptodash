@@ -1,60 +1,57 @@
-import React, { Component } from "react"
-const cc = require("cryptocompare")
-export const AppContext = React.createContext()
+import React, { Component } from 'react';
+const cc = require('cryptocompare');
+export const AppContext = React.createContext();
 
 export class AppProvider extends Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			page: 'dashborad',
+			...this.saveSettings(),
+			setPage: this.setPage,
+			confirmFavorites: this.confirmFavorites
+		};
+	}
 
+	componentDidMount = () => {
+		this.fetchCoins();
+	};
 
-  constructor(props) {
-    super(props)
-    this.state = {
-      page: "dashborad",
-      ...this.saveSettings(),
-      setPage: this.setPage,
-      confirmFavorites: this.confirmFavorites
-    }
-  }
+	fetchCoins = async () => {
+		let coinList = (await cc.coinList()).Data;
+		this.setState({ coinList });
+		console.log(coinList);
+	};
 
-  componentDidMount = () => {
-    this.fetchCoins()
-  }
+	confirmFavorites = () => {
+		this.setState({
+			firstVisit: false,
+			page: 'dashborad'
+		});
+		localStorage.setItem(
+			'cryptoDash',
+			JSON.stringify({
+				test: 'hello'
+			})
+		);
+	};
 
-  fetchCoins = async () => {
-    let coinList = (await cc.coinList()).Data
-    this.setState({ coinList })
-    console.log(coinList)
-  }
+	saveSettings() {
+		let cryptoDashData = JSON.parse(localStorage.getItem('cryptoDash'));
+		if (!cryptoDashData) {
+			return {
+				page: 'settings',
+				firstVisit: true
+			};
+		}
+		return {};
+	}
 
-  confirmFavorites = () => {
-    this.setState({
-      firstVisit: false,
-      page: "dashborad"
-    })
-    localStorage.setItem("cryptoDash", JSON.stringify({
-      test: "hello"
-    }))
-  }
+	setPage = (page) => {
+		this.setState({ page });
+	};
 
-  saveSettings() {
-    let cryptoDashData = JSON.parse(localStorage.getItem("cryptoDash"))
-    if (!cryptoDashData) {
-      return {
-        page: "settings",
-        firstVisit: true
-      }
-    }
-    return {}
-  }
-
-  setPage = (page) => {
-    this.setState({ page })
-  }
-
-  render() {
-    return (
-      <AppContext.Provider value={this.state} >
-        {this.props.children}
-      </AppContext.Provider>
-    )
-  }
+	render() {
+		return <AppContext.Provider value={this.state}>{this.props.children}</AppContext.Provider>;
+	}
 }
