@@ -9,6 +9,7 @@ export default () => {
 		<Page name="settings">
 			<div>
 				<WelcomeMessage />
+				<CoinGrid topSection />
 				<ConfirmButton />
 				<CoinGrid />
 			</div>

@@ -5,8 +5,8 @@ import { AppContext } from '../App/AppProvider';
 
 const ConfirmButtonStyled = styled.div`
 	margin: 20px;
-	color: green;
-	cursor: pointer;
+	color: ${color3};
+	${fontSize1} cursor: pointer;
 	&:hover {
 		${greenBoxShadow};
 	}
